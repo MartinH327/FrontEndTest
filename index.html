@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/journal-whills-solid.svg">
+    <title>Star Wars</title>
+    <!--Scripts-->
+    <script src="https://kit.fontawesome.com/8546ab9573.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin="">
+    </script>    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <!--CSS link-->    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!--Nav & header-->
+  <div id="header" class="container-fluid">
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#about">ABOUT US</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#list">FILMS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#comments">COMMENTS</a>
+      </li>           
+    </ul>
+    <div id="header_title" class="container">  
+      <h1 class="text-white">STAR WARS</h1>
+      <h3 class="text-white pb-5 text-right">BY LEVEL SYSTEMS</h3>
+    </div>        
+    <a href="#about" id="btn_about" class="buttons">ABOUT US</a>
+  </div>
+  <!--Sections-->
+  <div class="container">
+    <div class="sections">
+      <!--About-->
+      <h2 class="heading">ABOUT US</h2>
+      <div id="about" class="shadow-lg p-5 mb-5 bg-white">  
+        <div class="row justify-content-center text-center">
+          <div class="col-md-4">
+            <i class="fas fa-jedi"></i>
+            <h2>CREATED BY JEDI</h2>
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas sollicitudin. Maecenas libero.
+            Sed convallis magna eu sem. Sed vel lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, sem.
+            Nam libero tempore, cum soluta nobis est.
+            </p>      
+          </div>        
+          <div class="col-md-4">
+            <i class="fab fa-old-republic"></i>
+            <h2>SOMETHING ABOUT OLD REPUBLIC</h2>
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas sollicitudin. Maecenas libero.
+            Sed convallis magna eu sem. Sed vel lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, sem.
+            Nam libero tempore, cum soluta nobis est.
+            </p>      
+          </div>
+          <div class="col-md-4">
+            <i class="fab fa-galactic-senate"></i>
+            <h2>WHAT IS GALACTIC SENATE</h2>
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas sollicitudin. Maecenas libero.
+            Sed convallis magna eu sem. Sed vel lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, sem.
+            Nam libero tempore, cum soluta nobis est.
+            </p>      
+          </div>
+          <div class="col-md pt-5">
+            <a href="#" class="buttons">CONTACT US</a>            
+          </div>      
+        </div>    
+      </div>
+      <!--Film list-->
+      <div id="list" class="pt-5 mt-5">
+        <h2 class="heading">FILMS</h2>
+        <table id="films" class="table-bordeless"></table>          
+      </div>
+      <!--Comments-->
+      <div id="comments">
+        <h2 class="heading">COMMENTS</h2>
+        <div class="row shadow-lg p-5 mb-5 bg-white">
+          <div class="col">
+            <div class="input-group mb-3">          
+              <textarea class="comment_area form-control form-control-lg" rows="1" placeholder="Write your comment here...">            
+              </textarea>
+              <div class="input-group-append">
+                <i class="fas fa-chevron-circle-right" onClick="sendComment()"></i>
+              </div>                    
+            </div>
+          </div>
+        </div>
+        <h2 class="pt-5 text-secondary">COMMENTS: <span id="counter"></span></h2>      
+			  <div class="cmt_items"></div>    
+      </div>
+    </div>    
+  </div>
+  <!--End Sections-->
+
+  <!--Leaflet map-->
+  <div class="container-fluid" id="mapid" style="height: 500px;"></div>
+  <!--Footer-->
+  <footer class="bg-dark text-white text-center p-5">
+    <h3>Vždyť jsi byl vyvolený! Měl jsi Sithy porazit, ne se k nim přidat.</h3>
+    <h4>Obi-Wan Kenobi - Pomsta Sithů</h4>
+  </footer>
+  <!-- Script leaflet map -->
+  <script>      
+    var mymap = L.map('mapid').setView([50.0824805209559, 14.417495727539062
+      ], 15);
+    var marker = L.marker([50.0865805209589, 14.410495727539062]).addTo(mymap);
+    var circle = L.circle([50.0824805209559, 14.417495727539062], {
+      color: 'red',
+      fillColor: '#f20011',
+      fillOpacity: 0.5,
+      radius: 250
+    }).addTo(mymap);
+    marker.bindPopup("<b>Charles bridge</b><br>Prague, CZ");
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', 
+    {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken: 'pk.eyJ1IjoiYWxjYS10cmF6IiwiYSI6ImNrcnN4emQ1dzBuMGsyb25wcHBqN3lybGkifQ._I-MrK3PwPRazrLnnyB3Hw'
+    }).addTo(mymap);
+  </script>    
+</body>
+</html>
